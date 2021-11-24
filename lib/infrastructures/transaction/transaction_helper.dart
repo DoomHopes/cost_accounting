@@ -77,4 +77,9 @@ class TransactionHelper {
     final db = await database;
     db.rawDelete("Delete * from Transaction");
   }
+
+  Future close() async {
+    final db = await database;
+    await db.close();
+  }
 }
