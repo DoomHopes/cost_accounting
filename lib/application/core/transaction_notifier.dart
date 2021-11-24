@@ -17,6 +17,12 @@ class TransactionNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateTransaction(TransactionModel transactionModel) {
+    transactionsList[transactionModel.id] == transactionModel;
+    _db.updateTransaction(transactionModel);
+    notifyListeners();
+  }
+
   void deleteTransaction(int id) {
     transactionsList.removeWhere((element) => element.id == id);
     _db.deleteTransaction(id);
