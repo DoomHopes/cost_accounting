@@ -35,7 +35,9 @@ class _TransactionPageState extends State<TransactionPage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          // TODO navigator
+        },
         child: const Icon(Icons.add),
       ),
     );

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:cost_accounting/domain/core/transaction_model.dart';
+import 'package:cost_accounting/domain/transactions/transaction_model.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
