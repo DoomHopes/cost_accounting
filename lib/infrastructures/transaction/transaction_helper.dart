@@ -37,7 +37,7 @@ class TransactionHelper {
     final db = await database;
     var table = await db.rawQuery("SELECT MAX(id)+1 as id FROM Transaction");
     int id = int.parse(table.first["id"].toString());
-    var raw = await db.rawInsert(
+    await db.rawInsert(
       "INSERT Into Transaction (id,title,amount,date)"
       " VALUES (?,?,?,?)",
       [
@@ -47,7 +47,6 @@ class TransactionHelper {
         transactionModel.date
       ],
     );
-    return raw;
   }
 
   Future<List<TransactionModel>> getTransactions() async {
@@ -61,7 +60,7 @@ class TransactionHelper {
 
   deleteTransaction(int id) async {
     final db = await database;
-    return db.delete("Transaction", where: "id = ?", whereArgs: [id]);
+    db.delete("Transaction", where: "id = ?", whereArgs: [id]);
   }
 
   deleteAll() async {
@@ -71,6 +70,6 @@ class TransactionHelper {
 
   Future close() async {
     final db = await database;
-    await db.close();
+    db.close();
   }
 }
