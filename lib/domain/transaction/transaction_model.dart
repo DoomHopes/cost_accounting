@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class TransactionModel {
-  final String id;
+  final int id;
   final String title;
   final String amount;
   final DateTime date;

@@ -37,7 +37,7 @@ class TransactionHelper {
     final db = await database;
     db.transaction((txn) async {
       return await txn.rawInsert(
-          'INSERT INTO Transaction(lastname, mobileno, emailid ) VALUES(' '\'' +
+          'INSERT INTO Transaction(title, amount, date) VALUES(' '\'' +
               transactionModel.title +
               '\'' +
               ',' +
