@@ -19,10 +19,6 @@ class TransactionNotifier extends ChangeNotifier {
 
   void updateTransaction(TransactionModel transactionModel) {
     _db.updateTransaction(transactionModel);
-
-    for (int i = 0; i < transactionsList.length; i++) {
-      print(transactionsList[i]);
-    }
     fetchTransactionList();
   }
 

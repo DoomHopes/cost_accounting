@@ -47,8 +47,7 @@ class _TransactionPageState extends State<TransactionPage> {
                             ' - ' +
                             consumerNotifier.transactionsList[index].amount +
                             ' \$',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                        overflow: TextOverflow.visible,
                         style: const TextStyle(
                           fontSize: 20,
                         ),
@@ -60,7 +59,6 @@ class _TransactionPageState extends State<TransactionPage> {
                       ),
                       trailing: IconButton(
                         onPressed: () {
-                          //todo переход на страницу редакции
                           Navigator.push(
                             context,
                             MaterialPageRoute(
