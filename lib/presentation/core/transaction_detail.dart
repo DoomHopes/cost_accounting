@@ -92,27 +92,39 @@ class _TransactionDetailState extends State<TransactionDetail> {
               Consumer(
                 builder: (context, watch, child) {
                   final consumerNotifier = watch.watch(transactionNotifier);
-                  return ElevatedButton(
-                    onPressed: () {
-                      if (_titleController.text.isEmpty ||
-                          _amountController.text.isEmpty) {
-                        return;
-                      }
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      ElevatedButton(
+                        onPressed: () {
+                          consumerNotifier
+                              .deleteTransaction(widget.transactionModel.id);
 
-                      final transactionModel = TransactionModel(
-                          id: consumerNotifier.transactionsList.isEmpty
-                              ? 1
-                              : consumerNotifier.transactionsList.last.id + 1,
-                          title: _titleController.text,
-                          amount: _amountController.text,
-                          date:
-                              _selectedDate.millisecondsSinceEpoch.toString());
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Delete'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          if (_titleController.text.isEmpty ||
+                              _amountController.text.isEmpty) {
+                            return;
+                          }
 
-                      consumerNotifier.updateTransaction(transactionModel);
+                          final transactionModel = TransactionModel(
+                              id: widget.transactionModel.id,
+                              title: _titleController.text,
+                              amount: _amountController.text,
+                              date: _selectedDate.millisecondsSinceEpoch
+                                  .toString());
 
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('Change'),
+                          consumerNotifier.updateTransaction(transactionModel);
+
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Change'),
+                      ),
+                    ],
                   );
                 },
               ),
