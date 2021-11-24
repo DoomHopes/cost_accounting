@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TransactionPage extends StatelessWidget {
+class TransactionPage extends StatefulWidget {
   const TransactionPage({Key? key}) : super(key: key);
 
   @override
+  State<TransactionPage> createState() => _TransactionPageState();
+}
+
+class _TransactionPageState extends State<TransactionPage> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('Bite my shine metal ass')),
+      appBar: AppBar(title: const Text("Cost Accounting")),
+      body: const Center(child: Text('Bite my shine metal ass')),
     );
   }
 }
