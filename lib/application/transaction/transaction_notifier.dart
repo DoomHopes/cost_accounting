@@ -14,16 +14,19 @@ class TransactionNotifier extends ChangeNotifier {
   void addTransaction(TransactionModel transactionModel) {
     transactionsList.add(transactionModel);
     _db.addTransation(transactionModel);
+    notifyListeners();
   }
 
   void deleteTransaction(int id) {
     transactionsList.removeWhere((element) => element.id == id);
     _db.deleteTransaction(id);
+    notifyListeners();
   }
 
   void deleteAll() {
     transactionsList = [];
     _db.deleteAll();
+    notifyListeners();
   }
 
   void close() {
