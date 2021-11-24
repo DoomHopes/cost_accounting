@@ -2,6 +2,7 @@ import 'package:cost_accounting/application/core/transaction_notifier.dart';
 import 'package:cost_accounting/presentation/core/transaction_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 final transactionNotifier =
     ChangeNotifierProvider((ref) => TransactionNotifier());
@@ -21,15 +22,25 @@ class _TransactionPageState extends State<TransactionPage> {
       body: Consumer(
         builder: (context, watch, child) {
           final consumerNotifier = watch.watch(transactionNotifier);
+          consumerNotifier.fetchTransactionList();
           return ListView.builder(
             itemCount: consumerNotifier.transactionsList.length,
             itemBuilder: (BuildContext context, int index) {
-              consumerNotifier.fetchTransactionList();
+              final addedDT = DateTime.fromMillisecondsSinceEpoch(
+                  int.parse(consumerNotifier.transactionsList[index].date));
+              final formattedAddedDT =
+                  DateFormat('dd MMMM yyyy').format(addedDT);
               return ListTile(
-                title: Text(consumerNotifier.transactionsList[index].title),
-                subtitle: Text(
-                    consumerNotifier.transactionsList[index].date.toString()),
-                trailing: Text(consumerNotifier.transactionsList[index].amount),
+                title: Text(
+                  consumerNotifier.transactionsList[index].title +
+                      ' - ' +
+                      consumerNotifier.transactionsList[index].amount +
+                      ' \$',
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                subtitle: Text(formattedAddedDT),
               );
             },
           );

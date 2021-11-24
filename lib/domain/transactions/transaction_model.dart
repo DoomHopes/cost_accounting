@@ -4,7 +4,7 @@ class TransactionModel {
   final int id;
   final String title;
   final String amount;
-  final DateTime date;
+  final String date;
 
   TransactionModel({
     required this.id,
@@ -18,7 +18,7 @@ class TransactionModel {
       'id': id,
       'title': title,
       'amount': amount,
-      'date': date.millisecondsSinceEpoch,
+      'date': date,
     };
   }
 
@@ -27,7 +27,7 @@ class TransactionModel {
       id: map['id'],
       title: map['title'],
       amount: map['amount'],
-      date: DateTime.fromMillisecondsSinceEpoch(map['date']),
+      date: map['date'],
     );
   }
 

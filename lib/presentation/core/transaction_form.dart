@@ -19,23 +19,6 @@ class _TransactionFormState extends State<TransactionForm> {
   final _amountController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
 
-  void _submitData() {
-    if (_titleController.text.isEmpty || _amountController.text.isEmpty) {
-      return;
-    }
-
-    final transactionModel = TransactionModel(
-      id: 1,
-      title: _titleController.text,
-      amount: _amountController.text,
-      date: _selectedDate,
-    );
-
-    // TODO add transaction
-
-    Navigator.of(context).pop();
-  }
-
   void _presentDatePicker() {
     showDatePicker(
       context: context,
@@ -96,11 +79,33 @@ class _TransactionFormState extends State<TransactionForm> {
                   ],
                 ),
               ),
-              ElevatedButton(
-                  onPressed: () {
-                    _submitData();
-                  },
-                  child: const Text('Add Transaction')),
+              Consumer(
+                builder: (context, watch, child) {
+                  final consumerNotifier = watch.watch(transactionNotifier);
+                  return ElevatedButton(
+                    onPressed: () {
+                      if (_titleController.text.isEmpty ||
+                          _amountController.text.isEmpty) {
+                        return;
+                      }
+
+                      final transactionModel = TransactionModel(
+                          id: consumerNotifier.transactionsList.isEmpty
+                              ? 1
+                              : consumerNotifier.transactionsList.last.id + 1,
+                          title: _titleController.text,
+                          amount: _amountController.text,
+                          date:
+                              _selectedDate.millisecondsSinceEpoch.toString());
+
+                      consumerNotifier.addTransaction(transactionModel);
+
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Add Transaction'),
+                  );
+                },
+              ),
             ],
           ),
         ),

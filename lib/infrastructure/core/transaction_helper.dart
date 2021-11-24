@@ -10,48 +10,45 @@ class TransactionHelper {
 
   static final TransactionHelper db = TransactionHelper._();
 
-  late Database _database;
+  Database? _database = null;
+
+  final String _tableName =
+      'transactions'; // transaction - это ключевое слово языка, поэтому оно не создает... блэт
 
   Future<Database> get database async {
-    if (_database != null) return _database;
-    // if _database is null we instantiate it
+    if (_database != null) return _database!;
     _database = await initDB();
-    return _database;
+    return _database!;
   }
 
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "TransactionDB.db");
-    return await openDatabase(path, version: 1, onOpen: (db) {},
+    String path = join(documentsDirectory.path, 'transaction_DB.db');
+    print(path);
+    return await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
-      await db.execute("CREATE TABLE Transaction ("
-          "id INTEGER PRIMARY KEY,"
-          "title TEXT,"
-          "amount TEXT,"
-          "date TEXT"
-          ")");
+      await db.execute(
+          'CREATE TABLE IF NOT EXISTS $_tableName (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, amount TEXT NOT NULL, date TEXT NOT NULL)');
     });
   }
 
   addTransation(TransactionModel transactionModel) async {
     final db = await database;
-    var table = await db.rawQuery("SELECT MAX(id)+1 as id FROM Transaction");
-    int id = int.parse(table.first["id"].toString());
+    //var table = await db.rawQuery('SELECT MAX(id)+1 as id FROM $_tableName;');
+    //int id = int.parse(table.first['id'].toString());
     await db.rawInsert(
-      "INSERT Into Transaction (id,title,amount,date)"
-      " VALUES (?,?,?,?)",
+      'INSERT Into $_tableName (title,amount,date) VALUES (?,?,?);',
       [
-        id,
-        transactionModel.title,
-        transactionModel.amount,
-        transactionModel.date
+        transactionModel.title.toString(),
+        transactionModel.amount.toString(),
+        transactionModel.date.toString()
       ],
     );
   }
 
   Future<List<TransactionModel>> getTransactions() async {
     final db = await database;
-    var res = await db.query("Transaction");
+    var res = await db.query(_tableName);
     List<TransactionModel> list = res.isNotEmpty
         ? res.map((c) => TransactionModel.fromMap(c)).toList()
         : [];
@@ -60,12 +57,12 @@ class TransactionHelper {
 
   deleteTransaction(int id) async {
     final db = await database;
-    db.delete("Transaction", where: "id = ?", whereArgs: [id]);
+    db.delete(_tableName, where: 'id = ?', whereArgs: [id]);
   }
 
   deleteAll() async {
     final db = await database;
-    db.rawDelete("Delete * from Transaction");
+    db.rawDelete('Delete * from $_tableName;');
   }
 
   Future close() async {
