@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'presentation/transaction/transaction_page.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -12,9 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Cost Accounting',
       theme: ThemeData.dark(),
-      home: const Scaffold(
-        body: Center(child: Text('Bite my shiny metal ass!')),
-      ),
+      home: const TransactionPage(),
     );
   }
 }
