@@ -13,7 +13,11 @@ class _TransactionPageState extends State<TransactionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Cost Accounting")),
-      body: const Center(child: Text('Bite my shine metal ass')),
+      body: Consumer(
+        builder: (context, watch, child) {
+          return Container();
+        },
+      ),
     );
   }
 }
