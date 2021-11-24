@@ -24,7 +24,6 @@ class TransactionHelper {
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, 'transaction_DB.db');
-    print(path);
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
       await db.execute(
@@ -34,8 +33,6 @@ class TransactionHelper {
 
   addTransation(TransactionModel transactionModel) async {
     final db = await database;
-    //var table = await db.rawQuery('SELECT MAX(id)+1 as id FROM $_tableName;');
-    //int id = int.parse(table.first['id'].toString());
     await db.rawInsert(
       'INSERT Into $_tableName (title,amount,date) VALUES (?,?,?);',
       [
@@ -44,6 +41,11 @@ class TransactionHelper {
         transactionModel.date.toString()
       ],
     );
+  }
+
+  updateTransaction(TransactionModel transactionModel) async {
+    final db = await database;
+    //todo update
   }
 
   Future<List<TransactionModel>> getTransactions() async {
