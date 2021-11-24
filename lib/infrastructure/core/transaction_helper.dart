@@ -46,13 +46,13 @@ class TransactionHelper {
   updateTransaction(TransactionModel transactionModel) async {
     final db = await database;
     await db.rawUpdate(
-      'UPDATE $_tableName SET title = ' +
+      'UPDATE $_tableName SET title = \'' +
           transactionModel.title.toString() +
-          'amount = ' +
+          '\', amount = \'' +
           transactionModel.amount.toString() +
-          'date = ' +
+          '\', date = \'' +
           transactionModel.date.toString() +
-          'WHERE id = ' +
+          '\' WHERE id = ' +
           transactionModel.id.toString(),
     );
   }
