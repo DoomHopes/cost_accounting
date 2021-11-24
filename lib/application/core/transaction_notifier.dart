@@ -1,5 +1,5 @@
-import 'package:cost_accounting/domain/transaction/transaction_model.dart';
-import 'package:cost_accounting/infrastructures/transaction/transaction_helper.dart';
+import 'package:cost_accounting/domain/core/transaction_model.dart';
+import 'package:cost_accounting/infrastructures/core/transaction_helper.dart';
 import 'package:flutter/cupertino.dart';
 
 class TransactionNotifier extends ChangeNotifier {

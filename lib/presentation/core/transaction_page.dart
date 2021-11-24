@@ -1,4 +1,4 @@
-import 'package:cost_accounting/application/transaction/transaction_notifier.dart';
+import 'package:cost_accounting/application/core/transaction_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -33,6 +33,10 @@ class _TransactionPageState extends State<TransactionPage> {
             },
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.add),
       ),
     );
   }
