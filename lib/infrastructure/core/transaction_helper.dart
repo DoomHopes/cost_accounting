@@ -45,7 +45,16 @@ class TransactionHelper {
 
   updateTransaction(TransactionModel transactionModel) async {
     final db = await database;
-    //todo update
+    await db.rawUpdate(
+      'UPDATE $_tableName SET title = ' +
+          transactionModel.title.toString() +
+          'amount = ' +
+          transactionModel.amount.toString() +
+          'date = ' +
+          transactionModel.date.toString() +
+          'WHERE id = ' +
+          transactionModel.id.toString(),
+    );
   }
 
   Future<List<TransactionModel>> getTransactions() async {

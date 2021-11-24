@@ -23,27 +23,49 @@ class _TransactionPageState extends State<TransactionPage> {
         builder: (context, watch, child) {
           final consumerNotifier = watch.watch(transactionNotifier);
           consumerNotifier.fetchTransactionList();
-          return ListView.builder(
-            itemCount: consumerNotifier.transactionsList.length,
-            itemBuilder: (BuildContext context, int index) {
-              final addedDT = DateTime.fromMillisecondsSinceEpoch(
-                  int.parse(consumerNotifier.transactionsList[index].date));
-              final formattedAddedDT =
-                  DateFormat('dd MMMM yyyy').format(addedDT);
-              return ListTile(
-                title: Text(
-                  consumerNotifier.transactionsList[index].title +
-                      ' - ' +
-                      consumerNotifier.transactionsList[index].amount +
-                      ' \$',
-                  style: const TextStyle(
-                    fontSize: 20,
+          return consumerNotifier.transactionsList.isEmpty
+              ? const Center(
+                  child: Text(
+                    'No transactions yet',
+                    style: TextStyle(
+                      fontSize: 25,
+                    ),
                   ),
-                ),
-                subtitle: Text(formattedAddedDT),
-              );
-            },
-          );
+                )
+              : ListView.builder(
+                  itemCount: consumerNotifier.transactionsList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final addedDT = DateTime.fromMillisecondsSinceEpoch(
+                        int.parse(
+                            consumerNotifier.transactionsList[index].date));
+                    final formattedAddedDT =
+                        DateFormat('dd MMMM yyyy').format(addedDT);
+                    return ListTile(
+                      title: Text(
+                        consumerNotifier.transactionsList[index].title +
+                            ' - ' +
+                            consumerNotifier.transactionsList[index].amount +
+                            ' \$',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                      subtitle: Text(
+                        formattedAddedDT,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      trailing: IconButton(
+                        onPressed: () {
+                          //todo переход на страницу редакции
+                        },
+                        icon: const Icon(Icons.arrow_forward_ios_outlined),
+                      ),
+                    );
+                  },
+                );
         },
       ),
       floatingActionButton: FloatingActionButton(
