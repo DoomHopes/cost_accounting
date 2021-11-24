@@ -25,7 +25,7 @@ class TransactionHelper {
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
       await db.execute("CREATE TABLE Transaction ("
-          "id TEXT PRIMARY KEY,"
+          "id INTEGER PRIMARY KEY,"
           "title TEXT,"
           "amount TEXT,"
           "date TEXT"
@@ -35,37 +35,28 @@ class TransactionHelper {
 
   addTransation(TransactionModel transactionModel) async {
     final db = await database;
-    db.transaction((txn) async {
-      return await txn.rawInsert(
-          'INSERT INTO Transaction(title, amount, date) VALUES(' '\'' +
-              transactionModel.title +
-              '\'' +
-              ',' +
-              '\'' +
-              transactionModel.amount.toString() +
-              '\'' +
-              ',' +
-              '\'' +
-              transactionModel.date.toString() +
-              '\'' +
-              ')');
-    });
+    var table = await db.rawQuery("SELECT MAX(id)+1 as id FROM Transaction");
+    int id = int.parse(table.first["id"].toString());
+    var raw = await db.rawInsert(
+      "INSERT Into Transaction (id,title,amount,date)"
+      " VALUES (?,?,?,?)",
+      [
+        id,
+        transactionModel.title,
+        transactionModel.amount,
+        transactionModel.date
+      ],
+    );
+    return raw;
   }
 
   Future<List<TransactionModel>> getTransactions() async {
     final db = await database;
-    List<Map> list = await db.rawQuery('SELECT * FROM Transaction');
-    List<TransactionModel> transactions = [];
-    for (int i = 0; i < list.length; i++) {
-      transactions.add(TransactionModel(
-        id: list[i]["id"],
-        title: list[i]["title"],
-        amount: list[i]["amount"],
-        date: list[i]["date"],
-      ));
-    }
-    print(transactions.length);
-    return transactions;
+    var res = await db.query("Transaction");
+    List<TransactionModel> list = res.isNotEmpty
+        ? res.map((c) => TransactionModel.fromMap(c)).toList()
+        : [];
+    return list;
   }
 
   deleteTransaction(int id) async {
