@@ -1,6 +1,6 @@
 import 'package:cost_accounting/application/core/transaction_notifier.dart';
-import 'package:cost_accounting/presentation/core/transaction_detail.dart';
 import 'package:cost_accounting/presentation/widgets/add_dialog.dart';
+import 'package:cost_accounting/presentation/widgets/refresh_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -55,14 +55,14 @@ class _TransactionPageState extends State<TransactionPage> {
                       ),
                       child: ListTile(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => TransactionDetail(
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return RefreshTransactionDialogWidget(
                                 transactionModel:
                                     consumerNotifier.transactionsList[index],
-                              ),
-                            ),
+                              );
+                            },
                           );
                         },
                         title: Text(
