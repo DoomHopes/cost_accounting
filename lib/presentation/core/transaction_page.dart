@@ -47,9 +47,10 @@ class _TransactionPageState extends State<TransactionPage> {
                     return Container(
                       margin: const EdgeInsets.all(5),
                       padding: const EdgeInsets.all(5),
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF62FCD7),
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      decoration: BoxDecoration(
+                        color: Colors.green[500],
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20)),
                       ),
                       child: ListTile(
                         onTap: () {

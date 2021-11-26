@@ -22,6 +22,10 @@ class InputWidget extends StatelessWidget {
         style: const TextStyle(fontSize: 20),
         decoration: InputDecoration(
           labelText: labelDecoration,
+          labelStyle: const TextStyle(
+            color: Colors.white,
+          ),
+          focusColor: Colors.white,
           focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.white, width: 3),
           ),
