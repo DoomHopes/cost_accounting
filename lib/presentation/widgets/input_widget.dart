@@ -16,6 +16,7 @@ class InputWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       child: TextField(
         controller: controller,
         keyboardType: keyboardType,

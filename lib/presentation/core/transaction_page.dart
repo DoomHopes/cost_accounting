@@ -1,6 +1,6 @@
 import 'package:cost_accounting/application/core/transaction_notifier.dart';
 import 'package:cost_accounting/presentation/core/transaction_detail.dart';
-import 'package:cost_accounting/presentation/core/transaction_form.dart';
+import 'package:cost_accounting/presentation/widgets/add_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -92,11 +92,11 @@ class _TransactionPageState extends State<TransactionPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const TransactionForm(),
-            ),
+          showDialog(
+            context: context,
+            builder: (context) {
+              return const AddTransactionDialogWidget();
+            },
           );
         },
         child: const Icon(Icons.add),
