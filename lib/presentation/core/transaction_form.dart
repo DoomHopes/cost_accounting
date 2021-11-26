@@ -76,12 +76,8 @@ class _TransactionFormState extends State<TransactionForm> {
                       ),
                     ),
                     ElevatedButton(
-                      child: const Text(
-                        'Choose Date',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child:
+                          const Icon(Icons.calendar_today_outlined, size: 20),
                       onPressed: _presentDatePicker,
                     ),
                   ],
@@ -110,7 +106,7 @@ class _TransactionFormState extends State<TransactionForm> {
 
                       Navigator.of(context).pop();
                     },
-                    child: const Text('Add Transaction'),
+                    child: const Text('Apply'),
                   );
                 },
               ),

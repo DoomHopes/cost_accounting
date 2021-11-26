@@ -106,12 +106,8 @@ class _TransactionDetailState extends State<TransactionDetail> {
                       ),
                     ),
                     ElevatedButton(
-                      child: const Text(
-                        'Choose Date',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child:
+                          const Icon(Icons.calendar_today_outlined, size: 20),
                       onPressed: _presentDatePicker,
                     ),
                   ],
@@ -138,7 +134,7 @@ class _TransactionDetailState extends State<TransactionDetail> {
 
                       Navigator.of(context).pop();
                     },
-                    child: const Text('Change'),
+                    child: const Text('Apply'),
                   );
                 },
               ),
