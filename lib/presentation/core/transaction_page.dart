@@ -45,10 +45,11 @@ class _TransactionPageState extends State<TransactionPage> {
                     final formattedAddedDT =
                         DateFormat('dd MMMM yyyy').format(addedDT);
                     return Container(
-                      margin: const EdgeInsets.all(5),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
                       padding: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                        color: Colors.green[500],
+                        color: Colors.grey[900],
                         borderRadius:
                             const BorderRadius.all(Radius.circular(20)),
                       ),
@@ -72,20 +73,16 @@ class _TransactionPageState extends State<TransactionPage> {
                           overflow: TextOverflow.visible,
                           style: const TextStyle(
                             fontSize: 20,
-                            color: Colors.black,
                           ),
                         ),
                         subtitle: Text(
                           formattedAddedDT,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: Colors.black,
-                          ),
+                          style: const TextStyle(),
                         ),
                         trailing: const Icon(
                           Icons.arrow_forward_ios_outlined,
-                          color: Colors.black,
                         ),
                       ),
                     );
