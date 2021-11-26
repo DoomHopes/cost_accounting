@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Cost Accounting',
       theme: ThemeData.dark(),
+      debugShowCheckedModeBanner: false,
       home: const TransactionPage(),
     );
   }

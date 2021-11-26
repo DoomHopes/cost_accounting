@@ -64,10 +64,16 @@ class _TransactionFormState extends State<TransactionForm> {
               SizedBox(
                 height: 70,
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Expanded(
+                    Container(
+                      padding: const EdgeInsets.only(left: 10),
                       child: Text(
-                          'Picked Date: ${DateFormat.yMd().format(_selectedDate)}'),
+                        'Picked Date: ${DateFormat.yMMMMd().format(_selectedDate)}',
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
                     ),
                     ElevatedButton(
                       child: const Text(

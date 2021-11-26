@@ -53,6 +53,26 @@ class _TransactionDetailState extends State<TransactionDetail> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.transactionModel.title),
+        actions: [
+          Consumer(
+            builder: (context, watch, child) {
+              final consumerNotifier = watch.watch(transactionNotifier);
+              return IconButton(
+                onPressed: () {
+                  consumerNotifier
+                      .deleteTransaction(widget.transactionModel.id);
+
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(
+                  Icons.delete_forever,
+                  color: Colors.red,
+                  size: 20,
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: Card(
         elevation: 5,
@@ -74,10 +94,16 @@ class _TransactionDetailState extends State<TransactionDetail> {
               SizedBox(
                 height: 70,
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Expanded(
+                    Container(
+                      padding: const EdgeInsets.only(left: 10),
                       child: Text(
-                          'Picked Date: ${DateFormat.yMd().format(_selectedDate)}'),
+                        'Picked Date: ${DateFormat.yMMMMd().format(_selectedDate)}',
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
                     ),
                     ElevatedButton(
                       child: const Text(
@@ -94,39 +120,25 @@ class _TransactionDetailState extends State<TransactionDetail> {
               Consumer(
                 builder: (context, watch, child) {
                   final consumerNotifier = watch.watch(transactionNotifier);
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      ElevatedButton(
-                        onPressed: () {
-                          consumerNotifier
-                              .deleteTransaction(widget.transactionModel.id);
+                  return ElevatedButton(
+                    onPressed: () {
+                      if (_titleController.text.isEmpty ||
+                          _amountController.text.isEmpty) {
+                        return;
+                      }
 
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text('Delete'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (_titleController.text.isEmpty ||
-                              _amountController.text.isEmpty) {
-                            return;
-                          }
+                      final transactionModel = TransactionModel(
+                          id: widget.transactionModel.id,
+                          title: _titleController.text,
+                          amount: _amountController.text,
+                          date:
+                              _selectedDate.millisecondsSinceEpoch.toString());
 
-                          final transactionModel = TransactionModel(
-                              id: widget.transactionModel.id,
-                              title: _titleController.text,
-                              amount: _amountController.text,
-                              date: _selectedDate.millisecondsSinceEpoch
-                                  .toString());
+                      consumerNotifier.updateTransaction(transactionModel);
 
-                          consumerNotifier.updateTransaction(transactionModel);
-
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text('Change'),
-                      ),
-                    ],
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Change'),
                   );
                 },
               ),
