@@ -19,7 +19,10 @@ class _TransactionPageState extends State<TransactionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Cost Accounting")),
+      appBar: AppBar(
+        title: const Text("Cost Accounting"),
+        elevation: 0,
+      ),
       body: Consumer(
         builder: (context, watch, child) {
           final consumerNotifier = watch.watch(transactionNotifier);
@@ -43,9 +46,10 @@ class _TransactionPageState extends State<TransactionPage> {
                         DateFormat('dd MMMM yyyy').format(addedDT);
                     return Container(
                       margin: const EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                       decoration: const BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        color: Color(0xFF62FCD7),
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
                       ),
                       child: ListTile(
                         onTap: () {
@@ -67,14 +71,21 @@ class _TransactionPageState extends State<TransactionPage> {
                           overflow: TextOverflow.visible,
                           style: const TextStyle(
                             fontSize: 20,
+                            color: Colors.black,
                           ),
                         ),
                         subtitle: Text(
                           formattedAddedDT,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Colors.black,
+                          ),
                         ),
-                        trailing: const Icon(Icons.arrow_forward_ios_outlined),
+                        trailing: const Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          color: Colors.black,
+                        ),
                       ),
                     );
                   },
