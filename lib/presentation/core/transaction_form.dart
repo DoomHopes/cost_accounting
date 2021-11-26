@@ -1,5 +1,6 @@
 import 'package:cost_accounting/application/core/transaction_notifier.dart';
 import 'package:cost_accounting/domain/transactions/transaction_model.dart';
+import 'package:cost_accounting/presentation/widgets/input_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -50,14 +51,15 @@ class _TransactionFormState extends State<TransactionForm> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              TextField(
-                decoration: const InputDecoration(labelText: 'Title'),
+              InputWidget(
                 controller: _titleController,
+                keyboardType: TextInputType.text,
+                labelDecoration: 'Title',
               ),
-              TextField(
-                decoration: const InputDecoration(labelText: 'Amount'),
+              InputWidget(
                 controller: _amountController,
                 keyboardType: TextInputType.number,
+                labelDecoration: 'Amount',
               ),
               SizedBox(
                 height: 70,
