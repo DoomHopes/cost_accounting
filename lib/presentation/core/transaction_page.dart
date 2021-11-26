@@ -41,24 +41,14 @@ class _TransactionPageState extends State<TransactionPage> {
                             consumerNotifier.transactionsList[index].date));
                     final formattedAddedDT =
                         DateFormat('dd MMMM yyyy').format(addedDT);
-                    return ListTile(
-                      title: Text(
-                        consumerNotifier.transactionsList[index].title +
-                            ' - ' +
-                            consumerNotifier.transactionsList[index].amount +
-                            ' \$',
-                        overflow: TextOverflow.visible,
-                        style: const TextStyle(
-                          fontSize: 20,
-                        ),
+                    return Container(
+                      margin: const EdgeInsets.all(5),
+                      decoration: const BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
                       ),
-                      subtitle: Text(
-                        formattedAddedDT,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      trailing: IconButton(
-                        onPressed: () {
+                      child: ListTile(
+                        onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -69,7 +59,22 @@ class _TransactionPageState extends State<TransactionPage> {
                             ),
                           );
                         },
-                        icon: const Icon(Icons.arrow_forward_ios_outlined),
+                        title: Text(
+                          consumerNotifier.transactionsList[index].title +
+                              ' - ' +
+                              consumerNotifier.transactionsList[index].amount +
+                              ' \$',
+                          overflow: TextOverflow.visible,
+                          style: const TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                        subtitle: Text(
+                          formattedAddedDT,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        trailing: const Icon(Icons.arrow_forward_ios_outlined),
                       ),
                     );
                   },
